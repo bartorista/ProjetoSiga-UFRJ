@@ -12,6 +12,7 @@ import model.Student;
 public @Data class Siga {
 	
 	private Map<String, Student> students = new HashMap<String, Student>();
+	private Map<String, Integer> studentPerYear = new HashMap<String, Integer>();
 	
 	private static Siga instance;
 	private @Getter String term;
@@ -31,13 +32,28 @@ public @Data class Siga {
 		this.term = academicTerm;
 	}
 
-	public void createStudent(String name, String courseName) {
+	public void registerStudent(String name, String courseName) {
 		Student student = new Student(generateDre(), name, courseName);
 		students.put(student.getDre(), student);
 	}
 
 	private String generateDre() {
-		return "110100001";
+		StringBuilder sb = new StringBuilder("1");
+		sb.append(Integer.valueOf(term.split("-")[0])%100);
+		sb.append(term.split("-")[1]);
+		Integer count = studentPerYear.get(term);
+		if(count == null){
+			count = 1;
+			studentPerYear.put(term, count);
+		}else{
+			count++;
+		}
+		
+		for (int i = sb.length(); i < 9 - count.toString().length(); i++) {
+			sb.append("0");
+		}
+		sb.append(count);
+		return sb.toString();
 	}
 
 	public Student getStudent(String dre) {

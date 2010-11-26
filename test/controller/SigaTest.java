@@ -12,10 +12,10 @@ import org.junit.Test;
 public class SigaTest extends Assert {
 	
 	Integer year = Calendar.getInstance().get(Calendar.YEAR)%100;
+	Integer semester = Calendar.getInstance().get(Calendar.MONTH) > 6 ? 2 : 1;
 	
 	@Test
 	public void createSigaWithTerm(){
-		Integer semester = Calendar.getInstance().get(Calendar.MONTH) > 6 ? 2 : 1;
 		String academicTerm = Calendar.getInstance().get(Calendar.YEAR)+"-"+semester;
 		
 		Siga siga = Siga.getInstance();
@@ -48,21 +48,20 @@ public class SigaTest extends Assert {
 	
 	@Test
 	public void generatedDre() {
-		Student student = new Student("1"+year+"100001","Victor Lima Campos", "Ciencia da Computação");
+		Student student = new Student("1"+year+semester+"00001","Victor Lima Campos", "Ciencia da Computação");
 		Siga siga = Siga.getInstance();
-		siga.createStudent("Victor Lima Campos", "Ciencia da Computação");
-		assertEquals(student, siga.getStudent("1"+year+"100001"));
+		siga.registerStudent("Victor Lima Campos", "Ciencia da Computação");
+		assertEquals(student, siga.getStudent("1"+year+semester+"00001"));
 	}
 	
 	@Test
 	public void generatedTwoDres() throws WrongTermFormat {
-		Student student = new Student("1"+year+"100001","Victor Lima Campos", "Ciencia da Computação");
-		Student student2 = new Student("1"+year+"100002","Victor Lima Campos", "Ciencia da Computação");
+		Student student = new Student("1"+year+semester+"00001","Victor Lima Campos", "Ciencia da Computação");
+		Student student2 = new Student("1"+year+semester+"00002","Victor Lima Campos", "Ciencia da Computação");
 		Siga siga = Siga.getInstance();
-		siga.createStudent("Victor Lima Campos", "Ciencia da Computação");
-		siga.setTerm("2011-2");
-		siga.createStudent("Júlio", "Ciencia da Computação");
-		assertEquals(student, siga.getStudent("1"+year+"100001"));
-		assertEquals(student2, siga.getStudent("111100002"));
+		siga.registerStudent("Victor Lima Campos", "Ciencia da Computação");
+		siga.registerStudent("Júlio", "Ciencia da Computação");
+		assertEquals(student, siga.getStudent("1"+year+semester+"00001"));
+		assertEquals(student2, siga.getStudent("1"+year+semester+"00002"));
 	}	
 }
