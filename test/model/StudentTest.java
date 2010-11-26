@@ -51,4 +51,9 @@ public class StudentTest extends Assert{
 		Student student = new Student();
 		student.setDre("234567890");
 	}
+	
+	@Test(expected = DreFormatError.class)
+	public void createStudentWithDreWithoutOneOnTheFirstDigit() throws DreFormatError{
+		Student student = new Student("234567890");
+	}
 }
