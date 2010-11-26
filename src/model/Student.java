@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Calendar;
+
 import controller.DreFormatError;
 
 public class Student {
@@ -24,6 +26,8 @@ public class Student {
 		if(dre.length() != 9)
 			throw new DreFormatError();
 		if(!dre.startsWith("1"))
+			throw new DreFormatError();
+		if(dre.indexOf(String.valueOf((Calendar.getInstance().get(Calendar.YEAR)%100))) != 1)
 			throw new DreFormatError();
 		this.dre = dre;
 	};
