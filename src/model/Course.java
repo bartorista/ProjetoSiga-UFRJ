@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @AllArgsConstructor
-public @Data class Student {
-	private String dre;
+public @Data class Course {
+	private String code;
 	private String name;
-	private String courseName;
+	private Integer credits;
 }
